@@ -1,1 +1,83 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Simple Calculator</title>
+    <style>
+        .calculator {
+            width: 350px;
+            margin:50px auto;
+        }
+        .display {
+            width: 300px;
+            height: 75px;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+        }
+        .button {
+          height: 65px;
+          color: blue;
+          width: 75px;
+          background: lighter;
+          border-radius: 12px;
+          margin-top: 10px;
+          font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" class="display" disabled>
+        <br>
+        <button class="button" onclick="clearDisplay()">AC</button>
+        <button class="button" onclick="appendToDisplay('%')">%</button>
+        <button class="button" onclick="appendToDisplay('/')">/</button>
+        <button class="button" onclick="appendToDisplay('*')">*</button>
+        <br>
+        <button class="button" onclick="appendToDisplay('7')">7</button>
+        <button class="button" onclick="appendToDisplay('8')">8</button>
+        <button class="button" onclick="appendToDisplay('9')">9</button>
+        <button class="button" onclick="appendToDisplay('-')">-</button>
+        <br>
+        <button class="button" onclick="appendToDisplay('4')">4</button>
+        <button class="button" onclick="appendToDisplay('5')">5</button>
+        <button class="button" onclick="appendToDisplay('6')">6</button>
+        <button class="button" onclick="appendToDisplay('+')">+</button>
+        <br>
+        <button class="button" onclick="appendToDisplay('1')">1</button>
+        <button class="button" onclick="appendToDisplay('2')">2</button>
+        <button class="button" onclick="appendToDisplay('3')">3</button>
+        <button class="button" onclick="calculateResult()">=</button>
+        <br>
+        <button class="button" onclick="appendToDisplay('0')" style="width: 235px;">0</button>
+        <button class="button" onclick="appendToDisplay('.')">.</button>
+    </div>
+
+    <script>
+        function appendToDisplay(value) {
+            document.getElementById('display').value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function calculateResult() {
+            let expression = document.getElementById('display').value;
+            
+            // Handle percentage operations
+            if (expression.includes('%')) {
+                expression = expression.replace(/(\d+)%/g, (match, p1) => p1 / 100);
+            }
+
+            try {
+                document.getElementById('display').value = eval(expression);
+            } catch (error) {
+                document.getElementById('display').value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
